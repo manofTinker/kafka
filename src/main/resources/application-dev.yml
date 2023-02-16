@@ -1,0 +1,45 @@
+server:
+  port: 8888
+
+spring:
+  kafka:
+    # 以逗号分隔的地址列表，用于建立与Kafka集群的初始连接(kafka 默认的端口号为9092)
+    bootstrap-servers: 123.207.88.210:9092
+    consumer:
+      enable-auto-commit: false
+      group-id: DATA_0X0001
+      max-poll-records: 50
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.zhongyun.base.model
+    listener:
+      ack-mode: manual_immediate
+      concurrency: 10
+      missing-topics-fatal: false
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+    properties:
+      max:
+        poll:
+          interval:
+            ms: 3600000
+  outkafka:
+    bootstrap-servers: 172.16.32.6:9092
+    consumer:
+      enable-auto-commit: false
+      group-id: DATA_0X0002
+      max-poll-records: 50
+    listener:
+      ack-mode: manual_immediate
+      concurrency: 10
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+    properties:
+      max:
+        poll:
+          interval:
+            ms: 3600000
